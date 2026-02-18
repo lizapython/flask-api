@@ -61,6 +61,16 @@ def health():
         "timestamp": datetime.now().isoformat()
     })
 
+@app.route('/students/<int:student_id>', methods=['DELETE'])
+def delete_students(student_id):
+    # Ищем студента по id
+    for index, student in enumerate(students):
+        if student["id"] == student_id:
+            deleted_student = students.pop(index)
+            return jsonify({"message": "Студент удалён"})
+    return jsonify({"error": "Студент не найден"}), 404      
+    
+    
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
