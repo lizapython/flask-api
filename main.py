@@ -31,7 +31,7 @@ def get_students():
         "count": len(students),
         "students": students
     })
-
+# Добавление
 @app.route('/students', methods=['POST'])
 def add_student():
     data = request.get_json()
@@ -60,7 +60,7 @@ def health():
         "service": "Student API",
         "timestamp": datetime.now().isoformat()
     })
-
+# Удаление
 @app.route('/students/<int:student_id>', methods=['DELETE'])
 def delete_students(student_id):
     # Ищем студента по id
@@ -69,7 +69,32 @@ def delete_students(student_id):
             deleted_student = students.pop(index)
             return jsonify({"message": "Студент удалён"})
     return jsonify({"error": "Студент не найден"}), 404      
+
+# Редактирование
+@app.route('/students/<int:student_id>', methods=['PUT'])
+def update_student(student_id):
+    data = request.get_json()
     
+    if not data:
+        return jsonify({"error": "No data provided"}), 400
+    
+    # Ищем студента по ID
+    for i, student in enumerate(students):
+        if student['id'] == student_id:
+            # Обновляем поля (если они переданы в запросе)
+            if 'name' in data:
+                student['name'] = data['name']
+            if 'group' in data:
+                student['group'] = data['group']
+            # Можно также добавить обновление даты, если нужно
+            # student['updated'] = datetime.now().isoformat()
+            
+            return jsonify({
+                "message": "Студент обновлён",
+                "student": student
+            }), 200
+    
+    return jsonify({"error": "Студент не найден"}), 404
     
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
