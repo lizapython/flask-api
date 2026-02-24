@@ -25,12 +25,30 @@ def home():
         "timestamp": datetime.now().isoformat()
     })
 
+
 @app.route('/students', methods=['GET'])
 def get_students():
-    return jsonify({
-        "count": len(students),
-        "students": students
-    })
+    group_filter = request.args.get('group')
+
+    if group_filter:
+        # Фильтруем список по группе
+        filtered = [s for s in students if s.get('group') == group_filter]
+        return jsonify({
+            "count": len(filtered),
+            "students": filtered,
+            "filter": {"group": group_filter}
+        })
+    else:
+        return jsonify({
+            "count": len(students),
+            "students": students
+        })
+    # @app.route('/students', methods=['GET'])
+# def get_students():
+#     return jsonify({
+#         "count": len(students),
+#         "students": students
+#     })
 # Добавление
 @app.route('/students', methods=['POST'])
 def add_student():
@@ -95,7 +113,7 @@ def update_student(student_id):
             }), 200
     
     return jsonify({"error": "Студент не найден"}), 404
-    
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
