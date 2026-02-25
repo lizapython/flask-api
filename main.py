@@ -13,6 +13,38 @@ students = [
     {"id": 2, "name": "Анна Петрова", "group": "ИС-202"}
 ]
 
+
+# Получаем ключ из переменных окружения
+API_KEY = os.environ.get('API_KEY')
+if not API_KEY:
+    print("⚠️ ВНИМАНИЕ: API_KEY не установлен в переменных окружения!")
+    print("Установите API_KEY в Render Dashboard → Environment Variables")
+    API_KEY = "default_key_for_dev"  # только для локальной разработки
+
+# Защита API
+@app.before_request
+def check_api_key():
+    # Разрешаем GET запросы без ключа (для фронтенда)
+    if request.method == 'GET':
+        return
+    
+    # Для POST/DELETE проверяем ключ
+    if request.method in ['POST', 'DELETE', 'PUT']:
+        provided_key = request.headers.get('X-API-Key') or request.args.get('api_key')
+        
+        if not API_KEY:
+            return jsonify({"error": "API key not configured on server"}), 500
+        
+        # if API_KEY == "default_key_for_dev":
+        #     return
+            
+        if provided_key != API_KEY:
+            print(f"❌ Неверный ключ! Ожидался: {API_KEY[:5]}..., получен: {provided_key}")
+            return jsonify({
+                "error": "Invalid API key",
+                "message": "Provide valid X-API-Key header"
+            }), 403
+            
 @app.route('/')
 def home():
     return jsonify({
