@@ -9,8 +9,26 @@ CORS(app)  # Разрешает запросы с любых доменов
 
 # Используем список для хранения студентов
 students = [
-    {"id": 1, "name": "Елизавета Дерюга", "group": "ПИ-101"},
-    {"id": 2, "name": "Анна Петрова", "group": "ИС-202"}
+    {'id': 1, 'name': 'Герасимова Бронислав Фролович', 'group': 'БИ-303', 'email': 'xermakov@example.com'},
+    {'id': 2, 'name': 'Кудряшова Милица Августович', 'group': 'ИС-202', 'email': 'efrem_1974@example.com'},
+    {'id': 3, 'name': 'Князева Дорофей Иосипович', 'group': 'ИС-202', 'email': 'januari1984@example.net'},
+    {'id': 4, 'name': 'Суворова Амвросий Викторовна', 'group': 'БИ-303', 'email': 'klavdi2013@example.com'},
+    {'id': 5, 'name': 'Овчинникова Аверьян Зиновьевич', 'group': 'ИС-202', 'email': 'valentinafedorova@example.org'},
+    {'id': 6, 'name': 'Куликов Антонин Тарасовна', 'group': 'ВТ-505', 'email': 'iljatsvetkov@example.org'},
+    {'id': 7, 'name': 'Михайлов Фаина Богдановна', 'group': 'ПИ-101', 'email': 'valentinorlov@example.com'},
+    {'id': 8, 'name': 'Сазонов Афиноген Игнатович', 'group': 'ПИ-101', 'email': 'nekrasovsidor@example.net'},        
+    {'id': 9, 'name': 'Исаков Фома Жоресович', 'group': 'ИТ-404', 'email': 'veronika1978@example.net'},
+    {'id': 10, 'name': 'Семенова Анисим Феликсович', 'group': 'ИС-202', 'email': 'ribakovanaina@example.com'},       
+    {'id': 11, 'name': 'Исаев Парфен Трофимович', 'group': 'БИ-303', 'email': 'wkapustin@example.org'},
+    {'id': 12, 'name': 'Егорова Феоктист Игоревна', 'group': 'ИС-202', 'email': 'klavdija_98@example.com'},
+    {'id': 13, 'name': 'Павлова Владимир Ефстафьевич', 'group': 'ВТ-505', 'email': 'svjatoslav_2025@example.org'},   
+    {'id': 14, 'name': 'Гаврилова Ярополк Тарасовна', 'group': 'ИТ-404', 'email': 'vladilen21@example.org'},
+    {'id': 15, 'name': 'Цветкова Куприян Александровна', 'group': 'ПИ-101', 'email': 'emilijaaksenova@example.com'}, 
+    {'id': 16, 'name': 'Савин Наум Феофанович', 'group': 'ВТ-505', 'email': 'pestovaevgenija@example.net'},
+    {'id': 17, 'name': 'Шарапова София Богдановна', 'group': 'ИС-202', 'email': 'klavdija_2013@example.net'},        
+    {'id': 18, 'name': 'Трофимов Леонид Теймуразович', 'group': 'ВТ-505', 'email': 'faina1996@example.net'},
+    {'id': 19, 'name': 'Федоров Викентий Максимовна', 'group': 'БИ-303', 'email': 'vseslavmuravev@example.org'},     
+    {'id': 20, 'name': 'Родионов Касьян Эдуардовна', 'group': 'БИ-303', 'email': 'evpraksija_2015@example.com'},  
 ]
 
 
