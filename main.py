@@ -57,30 +57,56 @@ def home():
         "timestamp": datetime.now().isoformat()
     })
 
+# до добавления частичного поиска
+# @app.route('/students', methods=['GET'])
+# def get_students():
+#     group_filter = request.args.get('group')
 
-@app.route('/students', methods=['GET'])
-def get_students():
-    group_filter = request.args.get('group')
-
-    if group_filter:
-        # Фильтруем список по группе
-        filtered = [s for s in students if s.get('group') == group_filter]
-        return jsonify({
-            "count": len(filtered),
-            "students": filtered,
-            "filter": {"group": group_filter}
-        })
-    else:
-        return jsonify({
-            "count": len(students),
-            "students": students
-        })
+#     if group_filter:
+#         # Фильтруем список по группе
+#         filtered = [s for s in students if s.get('group') == group_filter]
+#         return jsonify({
+#             "count": len(filtered),
+#             "students": filtered,
+#             "filter": {"group": group_filter}
+#         })
+#     else:
+#         return jsonify({
+#             "count": len(students),
+#             "students": students
+#         })
     # @app.route('/students', methods=['GET'])
 # def get_students():
 #     return jsonify({
 #         "count": len(students),
 #         "students": students
 #     })
+
+@app.route('/students', methods=['GET']) 
+def get_students(): 
+    # Получаем параметры запроса 
+    search_term = request.args.get('search', '').strip().lower() 
+    group_filter = request.args.get('group', '').strip()  # если есть фильтр по группе 
+    filtered_students = students  # начинаем со всего списка 
+    # Применяем фильтр по группе (если параметр передан) 
+    if group_filter: 
+        filtered_students = [s for s in filtered_students if s.get('group') == group_filter] 
+    # Применяем поиск по имени (если параметр search передан) 
+    if search_term: 
+        filtered_students = [ 
+            s for s in filtered_students 
+            if search_term in s.get('name', '').lower() 
+        ] 
+ 
+    return jsonify({ 
+        "count": len(filtered_students), 
+        "students": filtered_students, 
+        "filters": { 
+            "search": search_term if search_term else None, 
+            "group": group_filter if group_filter else None 
+        } 
+    }) 
+    
 # Добавление
 @app.route('/students', methods=['POST'])
 def add_student():
